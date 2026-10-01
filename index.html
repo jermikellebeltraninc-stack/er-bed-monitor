@@ -8,50 +8,72 @@
 
 <style>
 
-/* =========================================================
-   GENERAL
-========================================================= */
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                 Roboto, Helvetica, Arial, sans-serif;
     background: #f4f7fb;
-    color: #1f2937;
+    color: #253447;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
 }
 
 
-/* =========================================================
+/* =====================================================
    HEADER
-========================================================= */
+===================================================== */
 
 .header {
     background: #123f61;
     color: white;
-    padding: 22px 38px;
+
+    min-height: 97px;
+
+    padding: 20px 38px;
+
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
-.header-left h1 {
+.header-title {
     margin: 0;
+
     font-size: 28px;
+    line-height: 1.2;
+
     font-weight: 700;
     letter-spacing: -0.3px;
 }
 
-.header-left p {
-    margin: 6px 0 0;
+.header-subtitle {
+    margin-top: 6px;
+
     font-size: 15px;
-    color: #dbe7f0;
+
+    color: #d7e4ee;
 }
 
-.header-right {
+.header-date-time {
     text-align: right;
 }
 
@@ -65,106 +87,194 @@ body {
 }
 
 
-/* =========================================================
+/* =====================================================
    MAIN CONTAINER
-========================================================= */
+===================================================== */
 
 .container {
     width: calc(100% - 54px);
     max-width: 1500px;
-    margin: 32px auto 50px;
+
+    margin: 32px auto 45px;
 }
 
 
-/* =========================================================
-   SUMMARY CARDS
-========================================================= */
+/* =====================================================
+   MAIN SUMMARY CARDS
+===================================================== */
 
 .summary-grid {
     display: grid;
+
     grid-template-columns: repeat(4, 1fr);
+
     gap: 18px;
-    margin-bottom: 38px;
+
+    margin-bottom: 25px;
 }
 
 .summary-card {
     background: white;
-    border-radius: 15px;
-    padding: 22px 26px;
+
     min-height: 108px;
 
-    border-left: 5px solid #174d73;
+    padding: 20px 22px;
+
+    border-radius: 14px;
+
+    border-left: 5px solid #164b70;
 
     box-shadow:
         0 3px 12px rgba(15, 61, 94, 0.08);
 }
 
 .summary-label {
-    color: #64748b;
+    color: #657792;
+
     font-size: 15px;
     font-weight: 600;
+
     margin-bottom: 8px;
 }
 
-.summary-value {
-    color: #174d73;
+.summary-number {
+    color: #164b70;
+
     font-size: 32px;
+    line-height: 1;
+
     font-weight: 700;
 }
 
 
-/* =========================================================
-   BED STATUS HEADER
-========================================================= */
+/* =====================================================
+   DEPARTMENT AVAILABILITY SUMMARY
+===================================================== */
 
-.status-header {
+.department-summary {
+    display: grid;
+
+    grid-template-columns: repeat(6, 1fr);
+
+    gap: 12px;
+
+    margin-bottom: 35px;
+}
+
+.department-summary-card {
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 14px 16px;
+
+    min-height: 78px;
+
+    box-shadow:
+        0 3px 10px rgba(15, 61, 94, 0.07);
+
+    border-left: 4px solid #164b70;
+}
+
+.department-summary-card span {
+    display: block;
+
+    color: #647792;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    margin-bottom: 5px;
+}
+
+.department-summary-card strong {
+    display: inline-block;
+
+    color: #164b70;
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+    margin-right: 5px;
+}
+
+.department-summary-card small {
+    color: #71839a;
+
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   BED AND ROOM STATUS HEADER
+===================================================== */
+
+.status-heading {
     display: flex;
-    justify-content: space-between;
+
     align-items: center;
+    justify-content: space-between;
+
     margin-bottom: 22px;
 }
 
-.status-header h2 {
+.status-heading h2 {
     margin: 0;
-    color: #174d73;
+
+    color: #164b70;
+
     font-size: 22px;
+
     font-weight: 700;
 }
 
-.search-container {
-    width: 300px;
+.search-box {
+    width: 302px;
 }
 
-.search-input {
+.search-box input {
     width: 100%;
-    padding: 11px 15px;
 
-    border: 1px solid #cbd5e1;
-    border-radius: 9px;
+    height: 40px;
+
+    padding: 0 15px;
 
     background: white;
-    color: #334155;
 
-    font-size: 14px;
+    border: 1px solid #cbd5e1;
+
+    border-radius: 9px;
 
     outline: none;
+
+    font-size: 13px;
+
+    color: #334155;
 }
 
-.search-input:focus {
-    border-color: #174d73;
+.search-box input::placeholder {
+    color: #a1a9b3;
+}
+
+.search-box input:focus {
+    border-color: #164b70;
 }
 
 
-/* =========================================================
-   DEPARTMENT SECTIONS
-========================================================= */
+/* =====================================================
+   DEPARTMENT
+===================================================== */
 
 .department {
     background: white;
+
     border-radius: 14px;
 
     padding: 24px;
-    margin-bottom: 24px;
+
+    margin-bottom: 25px;
 
     box-shadow:
         0 3px 12px rgba(15, 61, 94, 0.07);
@@ -172,27 +282,31 @@ body {
 
 .department-header {
     display: flex;
+
     justify-content: space-between;
     align-items: center;
 
     margin-bottom: 20px;
 }
 
-.department-title {
-    color: #174d73;
+.department-name {
+    color: #164b70;
+
     font-size: 20px;
+
     font-weight: 700;
 }
 
 .department-count {
-    color: #64748b;
-    font-size: 14px;
+    color: #667995;
+
+    font-size: 13px;
 }
 
 
-/* =========================================================
+/* =====================================================
    BED GRID
-========================================================= */
+===================================================== */
 
 .bed-grid {
     display: grid;
@@ -204,12 +318,12 @@ body {
 }
 
 
-/* =========================================================
+/* =====================================================
    BED CARD
-========================================================= */
+===================================================== */
 
 .bed-card {
-    min-height: 133px;
+    min-height: 134px;
 
     padding: 20px;
 
@@ -217,19 +331,20 @@ body {
 
     cursor: pointer;
 
+    border: 2px solid;
+
     transition:
         transform 0.15s ease,
-        box-shadow 0.15s ease,
-        background 0.15s ease;
+        box-shadow 0.15s ease;
 
-    border: 2px solid;
+    user-select: none;
 }
 
 .bed-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 
     box-shadow:
-        0 5px 12px rgba(0, 0, 0, 0.08);
+        0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .bed-card:active {
@@ -237,33 +352,46 @@ body {
 }
 
 
-/* AVAILABLE */
+/* =====================================================
+   AVAILABLE BED
+===================================================== */
 
 .bed-card.available {
-    background: #f0fdf4;
-    border-color: #16c75a;
+    background: #effcf4;
+
+    border-color: #0acb59;
 }
 
 
-/* OCCUPIED */
+/* =====================================================
+   OCCUPIED BED
+===================================================== */
 
 .bed-card.occupied {
     background: #fff1f2;
+
     border-color: #ef4444;
 }
 
 
-/* BED NAME */
+/* =====================================================
+   BED NAME
+===================================================== */
 
 .bed-name {
+    color: #263447;
+
     font-size: 19px;
+
     font-weight: 700;
-    color: #263445;
-    margin-bottom: 11px;
+
+    margin-bottom: 10px;
 }
 
 
-/* STATUS BADGE */
+/* =====================================================
+   STATUS BADGE
+===================================================== */
 
 .status-badge {
     display: inline-block;
@@ -272,37 +400,42 @@ body {
 
     border-radius: 20px;
 
-    font-size: 13px;
+    font-size: 12px;
+
     font-weight: 700;
 
-    margin-bottom: 12px;
+    margin-bottom: 11px;
 }
 
 .available .status-badge {
     background: #dcfce7;
+
     color: #15803d;
 }
 
 .occupied .status-badge {
     background: #fee2e2;
+
     color: #b91c1c;
 }
 
 
-/* CARD INSTRUCTION */
+/* =====================================================
+   CLICK INSTRUCTION
+===================================================== */
 
-.bed-instruction {
+.click-instruction {
     display: block;
 
-    color: #71849b;
+    color: #71839a;
 
     font-size: 12px;
 }
 
 
-/* =========================================================
+/* =====================================================
    ACTIVITY LOG
-========================================================= */
+===================================================== */
 
 .activity-section {
     background: white;
@@ -311,7 +444,7 @@ body {
 
     padding: 24px;
 
-    margin-top: 28px;
+    margin-top: 3px;
 
     box-shadow:
         0 3px 12px rgba(15, 61, 94, 0.07);
@@ -319,62 +452,66 @@ body {
 
 .activity-header {
     display: flex;
-    justify-content: space-between;
+
     align-items: center;
+    justify-content: space-between;
 
     margin-bottom: 18px;
 }
 
 .activity-title {
-    color: #174d73;
+    color: #164b70;
 
     font-size: 20px;
+
     font-weight: 700;
 }
 
-.clear-button {
+.clear-logs {
+    background: #dc2626;
+
+    color: white;
+
     border: none;
 
-    background: #dc2626;
-    color: white;
+    border-radius: 7px;
 
     padding: 9px 15px;
 
-    border-radius: 8px;
+    font-size: 12px;
 
-    font-size: 13px;
     font-weight: 600;
 
     cursor: pointer;
 }
 
-.clear-button:hover {
+.clear-logs:hover {
     background: #b91c1c;
 }
 
 
-/* TABLE WRAPPER */
+/* =====================================================
+   ACTIVITY TABLE
+===================================================== */
 
-.table-wrapper {
+.table-container {
     width: 100%;
+
     overflow-x: auto;
 }
-
-
-/* TABLE */
 
 .activity-table {
     width: 100%;
 
     border-collapse: collapse;
 
-    min-width: 550px;
+    min-width: 500px;
 }
 
 .activity-table th {
     background: #f1f5f9;
 
-    color: #475569;
+    color: #52647b;
 
     text-align: left;
 
@@ -390,36 +527,30 @@ body {
 .activity-table td {
     padding: 13px 15px;
 
-    border-bottom: 1px solid #e2e8f0;
+    font-size: 13px;
 
-    font-size: 14px;
+    color: #53657b;
 
-    color: #475569;
+    border-bottom: 1px solid #e7ebf0;
 }
 
-.activity-table tr:last-child td {
+.activity-table tbody tr:last-child td {
     border-bottom: none;
 }
 
+.log-occupied {
+    color: #b91c1c !important;
 
-/* LOG STATUS */
-
-.log-status {
     font-weight: 700;
 }
 
-.log-status.occupied {
-    color: #b91c1c;
+.log-available {
+    color: #15803d !important;
+
+    font-weight: 700;
 }
 
-.log-status.available {
-    color: #15803d;
-}
-
-
-/* EMPTY LOG */
-
-.no-log {
+.empty-log {
     text-align: center;
 
     color: #94a3b8 !important;
@@ -428,9 +559,9 @@ body {
 }
 
 
-/* =========================================================
+/* =====================================================
    FOOTER
-========================================================= */
+===================================================== */
 
 .footer {
     text-align: center;
@@ -439,18 +570,64 @@ body {
 
     font-size: 12px;
 
-    padding: 5px 0 25px;
+    padding-bottom: 25px;
 }
 
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
+/* =====================================================
+   SEARCH HIDDEN
+===================================================== */
 
-@media (max-width: 1000px) {
+.bed-card.search-hidden {
+    display: none;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+/*
+   At the iPad size shown in your screenshot:
+   - Main summary = 2 columns
+   - Department availability = 3 columns
+   - Bed cards = 3 columns
+*/
+
+@media (max-width: 1150px) {
 
     .summary-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .department-summary {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .bed-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 800px) {
+
+    .header {
+        padding: 20px 25px;
+    }
+
+    .container {
+        width: calc(100% - 36px);
+    }
+
+    .department-summary {
+        grid-template-columns: repeat(3, 1fr);
     }
 
     .bed-grid {
@@ -461,68 +638,80 @@ body {
 }
 
 
-@media (max-width: 700px) {
+/* =====================================================
+   PHONE
+===================================================== */
+
+@media (max-width: 600px) {
 
     .header {
-        padding: 20px;
         display: block;
+
+        padding: 20px;
     }
 
-    .header-right {
+    .header-date-time {
         text-align: left;
-        margin-top: 15px;
+
+        margin-top: 14px;
+    }
+
+    .header-title {
+        font-size: 24px;
     }
 
     .container {
-        width: calc(100% - 28px);
+        width: calc(100% - 24px);
+
         margin-top: 22px;
     }
 
-    .status-header {
-        display: block;
-    }
-
-    .search-container {
-        width: 100%;
-        margin-top: 15px;
-    }
-
-    .bed-grid {
-        grid-template-columns: 1fr;
-    }
-
-}
-
-
-@media (max-width: 500px) {
-
     .summary-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
+
         gap: 12px;
     }
 
     .summary-card {
+        min-height: 100px;
+
         padding: 17px;
     }
 
-    .summary-value {
+    .summary-number {
         font-size: 27px;
+    }
+
+    .department-summary {
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 10px;
+
+        margin-bottom: 28px;
+    }
+
+    .department-summary-card {
+        padding: 13px;
+    }
+
+    .status-heading {
+        display: block;
+    }
+
+    .status-heading h2 {
+        margin-bottom: 14px;
+    }
+
+    .search-box {
+        width: 100%;
     }
 
     .department {
         padding: 18px;
     }
 
-    .department-header {
-        align-items: flex-start;
-    }
-
-    .department-title {
-        font-size: 18px;
-    }
-
-    .department-count {
-        font-size: 12px;
+    .bed-grid {
+        grid-template-columns: 1fr;
     }
 
     .activity-header {
@@ -532,12 +721,20 @@ body {
 }
 
 
-/* =========================================================
-   HIDDEN SEARCH RESULT
-========================================================= */
+/* =====================================================
+   SMALL PHONE
+===================================================== */
 
-.bed-card.hidden {
-    display: none;
+@media (max-width: 400px) {
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .department-summary {
+        grid-template-columns: 1fr 1fr;
+    }
+
 }
 
 </style>
@@ -553,29 +750,29 @@ body {
 
 <header class="header">
 
-    <div class="header-left">
+    <div>
 
-        <h1>
+        <h1 class="header-title">
             ER Bed Monitoring System
         </h1>
 
-        <p>
+        <div class="header-subtitle">
             Emergency Department Bed Availability Monitoring
-        </p>
+        </div>
 
     </div>
 
 
-    <div class="header-right">
+    <div class="header-date-time">
 
         <div
             class="header-date"
-            id="headerDate">
+            id="currentDate">
         </div>
 
         <div
             class="header-time"
-            id="headerTime">
+            id="currentTime">
         </div>
 
     </div>
@@ -592,7 +789,7 @@ body {
 
 
     <!-- =================================================
-         SUMMARY
+         MAIN SUMMARY
     ================================================== -->
 
     <section class="summary-grid">
@@ -605,13 +802,12 @@ body {
             </div>
 
             <div
-                class="summary-value"
-                id="totalBeds">
+                class="summary-number"
+                id="totalCount">
                 23
             </div>
 
         </div>
-
 
 
         <div class="summary-card">
@@ -621,13 +817,12 @@ body {
             </div>
 
             <div
-                class="summary-value"
-                id="availableBeds">
+                class="summary-number"
+                id="availableCount">
                 23
             </div>
 
         </div>
-
 
 
         <div class="summary-card">
@@ -637,13 +832,12 @@ body {
             </div>
 
             <div
-                class="summary-value"
-                id="occupiedBeds">
+                class="summary-number"
+                id="occupiedCount">
                 0
             </div>
 
         </div>
-
 
 
         <div class="summary-card">
@@ -653,8 +847,8 @@ body {
             </div>
 
             <div
-                class="summary-value"
-                id="occupancyRate">
+                class="summary-number"
+                id="occupancyCount">
                 0%
             </div>
 
@@ -666,24 +860,136 @@ body {
 
 
     <!-- =================================================
-         BED STATUS HEADER
+         DEPARTMENT AVAILABILITY
     ================================================== -->
 
-    <div class="status-header">
+    <section class="department-summary">
+
+
+        <div class="department-summary-card">
+
+            <span>
+                Medicine
+            </span>
+
+            <strong id="medicineAvailableSummary">
+                9
+            </strong>
+
+            <small>
+                Available
+            </small>
+
+        </div>
+
+
+        <div class="department-summary-card">
+
+            <span>
+                Surgery
+            </span>
+
+            <strong id="surgeryAvailableSummary">
+                4
+            </strong>
+
+            <small>
+                Available
+            </small>
+
+        </div>
+
+
+        <div class="department-summary-card">
+
+            <span>
+                Pediatric
+            </span>
+
+            <strong id="pediatricAvailableSummary">
+                4
+            </strong>
+
+            <small>
+                Available
+            </small>
+
+        </div>
+
+
+        <div class="department-summary-card">
+
+            <span>
+                Isolation
+            </span>
+
+            <strong id="isolationAvailableSummary">
+                2
+            </strong>
+
+            <small>
+                Available
+            </small>
+
+        </div>
+
+
+        <div class="department-summary-card">
+
+            <span>
+                Observation
+            </span>
+
+            <strong id="observationAvailableSummary">
+                3
+            </strong>
+
+            <small>
+                Available
+            </small>
+
+        </div>
+
+
+        <div class="department-summary-card">
+
+            <span>
+                Minor OR
+            </span>
+
+            <strong id="minorORAvailableSummary">
+                1
+            </strong>
+
+            <small>
+                Available
+            </small>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         BED AND ROOM STATUS
+    ================================================== -->
+
+    <div class="status-heading">
 
         <h2>
             Bed and Room Status
         </h2>
 
 
-        <div class="search-container">
+        <div class="search-box">
 
             <input
                 type="text"
-                class="search-input"
                 id="searchInput"
                 placeholder="Search bed or room..."
-                oninput="searchBeds()">
+                autocomplete="off">
 
         </div>
 
@@ -699,7 +1005,7 @@ body {
 
         <div class="department-header">
 
-            <div class="department-title">
+            <div class="department-name">
                 Medicine
             </div>
 
@@ -729,7 +1035,7 @@ body {
 
         <div class="department-header">
 
-            <div class="department-title">
+            <div class="department-name">
                 Surgery
             </div>
 
@@ -759,7 +1065,7 @@ body {
 
         <div class="department-header">
 
-            <div class="department-title">
+            <div class="department-name">
                 Pediatric
             </div>
 
@@ -789,7 +1095,7 @@ body {
 
         <div class="department-header">
 
-            <div class="department-title">
+            <div class="department-name">
                 Isolation
             </div>
 
@@ -819,7 +1125,7 @@ body {
 
         <div class="department-header">
 
-            <div class="department-title">
+            <div class="department-name">
                 Observation
             </div>
 
@@ -849,7 +1155,7 @@ body {
 
         <div class="department-header">
 
-            <div class="department-title">
+            <div class="department-name">
                 Minor OR
             </div>
 
@@ -885,8 +1191,8 @@ body {
 
 
             <button
-                class="clear-button"
-                onclick="clearLogs()">
+                class="clear-logs"
+                id="clearLogsButton">
 
                 Clear Logs
 
@@ -895,7 +1201,7 @@ body {
         </div>
 
 
-        <div class="table-wrapper">
+        <div class="table-container">
 
             <table class="activity-table">
 
@@ -922,11 +1228,11 @@ body {
 
                 <tbody id="activityLog">
 
-                    <tr id="noLogRow">
+                    <tr id="emptyLog">
 
                         <td
                             colspan="3"
-                            class="no-log">
+                            class="empty-log">
 
                             No bed activity recorded yet.
 
@@ -961,11 +1267,11 @@ body {
 
 <script>
 
-/* =========================================================
+/* =====================================================
    BED DATA
-========================================================= */
+===================================================== */
 
-const bedSections = {
+const beds = {
 
     medicine: [
         "Medicine 01",
@@ -1011,15 +1317,15 @@ const bedSections = {
 };
 
 
-/* =========================================================
-   BED STATUS
-========================================================= */
+/* =====================================================
+   INITIAL BED STATUS
+===================================================== */
 
 const bedStatus = {};
 
-Object.keys(bedSections).forEach(section => {
+Object.keys(beds).forEach(section => {
 
-    bedSections[section].forEach(bed => {
+    beds[section].forEach(bed => {
 
         bedStatus[bed] = "Available";
 
@@ -1028,13 +1334,13 @@ Object.keys(bedSections).forEach(section => {
 });
 
 
-/* =========================================================
-   DISPLAY BEDS
-========================================================= */
+/* =====================================================
+   RENDER BEDS
+===================================================== */
 
 function renderBeds() {
 
-    Object.keys(bedSections).forEach(section => {
+    Object.keys(beds).forEach(section => {
 
         const container =
             document.getElementById(
@@ -1045,7 +1351,7 @@ function renderBeds() {
         container.innerHTML = "";
 
 
-        bedSections[section].forEach(bed => {
+        beds[section].forEach(bed => {
 
             const card =
                 document.createElement("div");
@@ -1077,7 +1383,7 @@ function renderBeds() {
                     ${status.toUpperCase()}
                 </span>
 
-                <span class="bed-instruction">
+                <span class="click-instruction">
                     Click to change status
                 </span>
 
@@ -1086,11 +1392,7 @@ function renderBeds() {
 
             card.addEventListener(
                 "click",
-                function() {
-
-                    toggleBed(bed);
-
-                }
+                () => toggleBed(bed)
             );
 
 
@@ -1108,9 +1410,9 @@ function renderBeds() {
 }
 
 
-/* =========================================================
+/* =====================================================
    TOGGLE BED
-========================================================= */
+===================================================== */
 
 function toggleBed(bed) {
 
@@ -1129,7 +1431,7 @@ function toggleBed(bed) {
     }
 
 
-    /* Record activity */
+    /* Add activity log */
     addActivityLog(
         bed,
         bedStatus[bed]
@@ -1140,15 +1442,15 @@ function toggleBed(bed) {
     renderBeds();
 
 
-    /* Keep search filter active */
+    /* Keep search active */
     searchBeds();
 
 }
 
 
-/* =========================================================
-   SUMMARY
-========================================================= */
+/* =====================================================
+   MAIN SUMMARY
+===================================================== */
 
 function updateSummary() {
 
@@ -1178,108 +1480,111 @@ function updateSummary() {
         total - occupied;
 
 
-    const rate =
-        total > 0
-            ? Math.round(
+    const occupancyRate =
+        total === 0
+            ? 0
+            : Math.round(
                 (occupied / total) * 100
-            )
-            : 0;
+            );
 
 
     document.getElementById(
-        "totalBeds"
+        "totalCount"
     ).textContent = total;
 
 
     document.getElementById(
-        "availableBeds"
+        "availableCount"
     ).textContent = available;
 
 
     document.getElementById(
-        "occupiedBeds"
+        "occupiedCount"
     ).textContent = occupied;
 
 
     document.getElementById(
-        "occupancyRate"
+        "occupancyCount"
     ).textContent =
-        rate + "%";
+        occupancyRate + "%";
 
 }
 
 
-/* =========================================================
+/* =====================================================
    DEPARTMENT COUNTS
-========================================================= */
+===================================================== */
 
 function updateDepartmentCounts() {
 
-    Object.keys(bedSections).forEach(
-        section => {
+    Object.keys(beds).forEach(section => {
 
-            let occupied = 0;
-
-
-            bedSections[section].forEach(
-                bed => {
-
-                    if (
-                        bedStatus[bed] ===
-                        "Occupied"
-                    ) {
-
-                        occupied++;
-
-                    }
-
-                }
-            );
+        let occupied = 0;
 
 
-            const total =
-                bedSections[section].length;
+        beds[section].forEach(bed => {
+
+            if (
+                bedStatus[bed] === "Occupied"
+            ) {
+
+                occupied++;
+
+            }
+
+        });
 
 
-            const available =
-                total - occupied;
+        const total =
+            beds[section].length;
 
 
-            document.getElementById(
-                section + "Count"
-            ).textContent =
-                `${available} available / ${occupied} occupied`;
+        const available =
+            total - occupied;
 
-        }
-    );
+
+        /* Existing department count */
+        document.getElementById(
+            section + "Count"
+        ).textContent =
+            `${available} available / ${occupied} occupied`;
+
+
+        /* New department summary */
+        document.getElementById(
+            section + "AvailableSummary"
+        ).textContent =
+            available;
+
+    });
 
 }
 
 
-/* =========================================================
+/* =====================================================
    ACTIVITY LOG
-========================================================= */
+===================================================== */
 
 function addActivityLog(
     bed,
     status
 ) {
 
-    const table =
+    const log =
         document.getElementById(
             "activityLog"
         );
 
 
-    const emptyRow =
+    const empty =
         document.getElementById(
-            "noLogRow"
+            "emptyLog"
         );
 
 
-    if (emptyRow) {
+    if (empty) {
 
-        emptyRow.remove();
+        empty.remove();
 
     }
 
@@ -1294,7 +1599,7 @@ function addActivityLog(
 
     const time =
         now.toLocaleTimeString(
-            [],
+            "en-US",
             {
                 hour: "numeric",
                 minute: "2-digit"
@@ -1304,8 +1609,8 @@ function addActivityLog(
 
     const statusClass =
         status === "Occupied"
-            ? "occupied"
-            : "available";
+            ? "log-occupied"
+            : "log-available";
 
 
     row.innerHTML = `
@@ -1318,29 +1623,25 @@ function addActivityLog(
             ${bed}
         </td>
 
-        <td
-            class="log-status ${statusClass}">
+        <td class="${statusClass}">
             ${status}
         </td>
 
     `;
 
 
-    /*
-       Newest activity goes to the top
-    */
-
-    table.insertBefore(
+    /* Newest log appears first */
+    log.insertBefore(
         row,
-        table.firstChild
+        log.firstChild
     );
 
 }
 
 
-/* =========================================================
-   CLEAR ACTIVITY LOG
-========================================================= */
+/* =====================================================
+   CLEAR LOGS
+===================================================== */
 
 function clearLogs() {
 
@@ -1357,19 +1658,19 @@ function clearLogs() {
     }
 
 
-    const table =
+    const log =
         document.getElementById(
             "activityLog"
         );
 
 
-    table.innerHTML = `
+    log.innerHTML = `
 
-        <tr id="noLogRow">
+        <tr id="emptyLog">
 
             <td
                 colspan="3"
-                class="no-log">
+                class="empty-log">
 
                 No bed activity recorded yet.
 
@@ -1382,9 +1683,9 @@ function clearLogs() {
 }
 
 
-/* =========================================================
+/* =====================================================
    SEARCH
-========================================================= */
+===================================================== */
 
 function searchBeds() {
 
@@ -1402,17 +1703,17 @@ function searchBeds() {
         .querySelectorAll(".bed-card")
         .forEach(card => {
 
-            const bedName =
+            const name =
                 card.dataset.bed
                     .toLowerCase();
 
 
             if (
-                bedName.includes(search)
+                name.includes(search)
             ) {
 
                 card.classList.remove(
-                    "hidden"
+                    "search-hidden"
                 );
 
             }
@@ -1420,7 +1721,7 @@ function searchBeds() {
             else {
 
                 card.classList.add(
-                    "hidden"
+                    "search-hidden"
                 );
 
             }
@@ -1430,9 +1731,9 @@ function searchBeds() {
 }
 
 
-/* =========================================================
+/* =====================================================
    DATE AND TIME
-========================================================= */
+===================================================== */
 
 function updateDateTime() {
 
@@ -1464,29 +1765,49 @@ function updateDateTime() {
 
 
     document.getElementById(
-        "headerDate"
+        "currentDate"
     ).textContent = date;
 
 
     document.getElementById(
-        "headerTime"
+        "currentTime"
     ).textContent = time;
 
 }
 
 
-/* =========================================================
+/* =====================================================
+   SEARCH EVENT
+===================================================== */
+
+document
+    .getElementById("searchInput")
+    .addEventListener(
+        "input",
+        searchBeds
+    );
+
+
+/* =====================================================
+   CLEAR LOG EVENT
+===================================================== */
+
+document
+    .getElementById("clearLogsButton")
+    .addEventListener(
+        "click",
+        clearLogs
+    );
+
+
+/* =====================================================
    INITIALIZE
-========================================================= */
+===================================================== */
 
 renderBeds();
 
 updateDateTime();
 
-
-/*
-   Update the clock every second
-*/
 
 setInterval(
     updateDateTime,
@@ -1494,7 +1815,6 @@ setInterval(
 );
 
 </script>
-
 
 </body>
 </html>
