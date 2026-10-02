@@ -1,1820 +1,3034 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>ER Bed Monitoring System</title>
-
-<style>
-
-/* =====================================================
-   RESET
-===================================================== */
-
-* {
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    margin: 0;
-    background: #f4f7fb;
-    color: #253447;
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.header {
-    background: #123f61;
-    color: white;
-
-    min-height: 97px;
-
-    padding: 20px 38px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.12);
-}
-
-.header-title {
-    margin: 0;
-
-    font-size: 28px;
-    line-height: 1.2;
-
-    font-weight: 700;
-    letter-spacing: -0.3px;
-}
-
-.header-subtitle {
-    margin-top: 6px;
-
-    font-size: 15px;
-
-    color: #d7e4ee;
-}
-
-.header-date-time {
-    text-align: right;
-}
-
-.header-date {
-    font-size: 15px;
-    margin-bottom: 5px;
-}
-
-.header-time {
-    font-size: 14px;
-}
-
-
-/* =====================================================
-   MAIN CONTAINER
-===================================================== */
-
-.container {
-    width: calc(100% - 54px);
-    max-width: 1500px;
-
-    margin: 32px auto 45px;
-}
-
-
-/* =====================================================
-   MAIN SUMMARY CARDS
-===================================================== */
-
-.summary-grid {
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    gap: 18px;
-
-    margin-bottom: 25px;
-}
-
-.summary-card {
-    background: white;
-
-    min-height: 108px;
-
-    padding: 20px 22px;
-
-    border-radius: 14px;
-
-    border-left: 5px solid #164b70;
-
-    box-shadow:
-        0 3px 12px rgba(15, 61, 94, 0.08);
-}
-
-.summary-label {
-    color: #657792;
-
-    font-size: 15px;
-    font-weight: 600;
-
-    margin-bottom: 8px;
-}
-
-.summary-number {
-    color: #164b70;
-
-    font-size: 32px;
-    line-height: 1;
-
-    font-weight: 700;
-}
-
-
-/* =====================================================
-   DEPARTMENT AVAILABILITY SUMMARY
-===================================================== */
-
-.department-summary {
-    display: grid;
-
-    grid-template-columns: repeat(6, 1fr);
-
-    gap: 12px;
-
-    margin-bottom: 35px;
-}
-
-.department-summary-card {
-    background: white;
-
-    border-radius: 12px;
-
-    padding: 14px 16px;
-
-    min-height: 78px;
-
-    box-shadow:
-        0 3px 10px rgba(15, 61, 94, 0.07);
-
-    border-left: 4px solid #164b70;
-}
-
-.department-summary-card span {
-    display: block;
-
-    color: #647792;
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-    margin-bottom: 5px;
-}
-
-.department-summary-card strong {
-    display: inline-block;
-
-    color: #164b70;
-
-    font-size: 24px;
-
-    font-weight: 700;
-
-    margin-right: 5px;
-}
-
-.department-summary-card small {
-    color: #71839a;
-
-    font-size: 11px;
-}
-
-
-/* =====================================================
-   BED AND ROOM STATUS HEADER
-===================================================== */
-
-.status-heading {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    margin-bottom: 22px;
-}
-
-.status-heading h2 {
-    margin: 0;
-
-    color: #164b70;
-
-    font-size: 22px;
-
-    font-weight: 700;
-}
-
-.search-box {
-    width: 302px;
-}
-
-.search-box input {
-    width: 100%;
-
-    height: 40px;
-
-    padding: 0 15px;
-
-    background: white;
-
-    border: 1px solid #cbd5e1;
-
-    border-radius: 9px;
-
-    outline: none;
-
-    font-size: 13px;
-
-    color: #334155;
-}
-
-.search-box input::placeholder {
-    color: #a1a9b3;
-}
-
-.search-box input:focus {
-    border-color: #164b70;
-}
-
-
-/* =====================================================
-   DEPARTMENT
-===================================================== */
-
-.department {
-    background: white;
-
-    border-radius: 14px;
-
-    padding: 24px;
-
-    margin-bottom: 25px;
-
-    box-shadow:
-        0 3px 12px rgba(15, 61, 94, 0.07);
-}
-
-.department-header {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 20px;
-}
-
-.department-name {
-    color: #164b70;
-
-    font-size: 20px;
-
-    font-weight: 700;
-}
-
-.department-count {
-    color: #667995;
-
-    font-size: 13px;
-}
-
-
-/* =====================================================
-   BED GRID
-===================================================== */
-
-.bed-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-    gap: 16px;
-}
-
-
-/* =====================================================
-   BED CARD
-===================================================== */
-
-.bed-card {
-    min-height: 134px;
-
-    padding: 20px;
-
-    border-radius: 11px;
-
-    cursor: pointer;
-
-    border: 2px solid;
-
-    transition:
-        transform 0.15s ease,
-        box-shadow 0.15s ease;
-
-    user-select: none;
-}
-
-.bed-card:hover {
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 4px 10px rgba(0, 0, 0, 0.08);
-}
-
-.bed-card:active {
-    transform: scale(0.99);
-}
-
-
-/* =====================================================
-   AVAILABLE BED
-===================================================== */
-
-.bed-card.available {
-    background: #effcf4;
-
-    border-color: #0acb59;
-}
-
-
-/* =====================================================
-   OCCUPIED BED
-===================================================== */
-
-.bed-card.occupied {
-    background: #fff1f2;
-
-    border-color: #ef4444;
-}
-
-
-/* =====================================================
-   BED NAME
-===================================================== */
-
-.bed-name {
-    color: #263447;
-
-    font-size: 19px;
-
-    font-weight: 700;
-
-    margin-bottom: 10px;
-}
-
-
-/* =====================================================
-   STATUS BADGE
-===================================================== */
-
-.status-badge {
-    display: inline-block;
-
-    padding: 6px 12px;
-
-    border-radius: 20px;
-
-    font-size: 12px;
-
-    font-weight: 700;
-
-    margin-bottom: 11px;
-}
-
-.available .status-badge {
-    background: #dcfce7;
-
-    color: #15803d;
-}
-
-.occupied .status-badge {
-    background: #fee2e2;
-
-    color: #b91c1c;
-}
-
-
-/* =====================================================
-   CLICK INSTRUCTION
-===================================================== */
-
-.click-instruction {
-    display: block;
-
-    color: #71839a;
-
-    font-size: 12px;
-}
-
-
-/* =====================================================
-   ACTIVITY LOG
-===================================================== */
-
-.activity-section {
-    background: white;
-
-    border-radius: 14px;
-
-    padding: 24px;
-
-    margin-top: 3px;
-
-    box-shadow:
-        0 3px 12px rgba(15, 61, 94, 0.07);
-}
-
-.activity-header {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    margin-bottom: 18px;
-}
-
-.activity-title {
-    color: #164b70;
-
-    font-size: 20px;
-
-    font-weight: 700;
-}
-
-.clear-logs {
-    background: #dc2626;
-
-    color: white;
-
-    border: none;
-
-    border-radius: 7px;
-
-    padding: 9px 15px;
-
-    font-size: 12px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-}
-
-.clear-logs:hover {
-    background: #b91c1c;
-}
-
-
-/* =====================================================
-   ACTIVITY TABLE
-===================================================== */
-
-.table-container {
-    width: 100%;
-
-    overflow-x: auto;
-}
-
-.activity-table {
-    width: 100%;
-
-    border-collapse: collapse;
-
-    min-width: 500px;
-}
-
-.activity-table th {
-    background: #f1f5f9;
-
-    color: #52647b;
-
-    text-align: left;
-
-    padding: 13px 15px;
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.activity-table td {
-    padding: 13px 15px;
-
-    font-size: 13px;
-
-    color: #53657b;
-
-    border-bottom: 1px solid #e7ebf0;
-}
-
-.activity-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.log-occupied {
-    color: #b91c1c !important;
-
-    font-weight: 700;
-}
-
-.log-available {
-    color: #15803d !important;
-
-    font-weight: 700;
-}
-
-.empty-log {
-    text-align: center;
-
-    color: #94a3b8 !important;
-
-    padding: 25px !important;
-}
-
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-.footer {
-    text-align: center;
-
-    color: #94a3b8;
-
-    font-size: 12px;
-
-    padding-bottom: 25px;
-}
-
-
-/* =====================================================
-   SEARCH HIDDEN
-===================================================== */
-
-.bed-card.search-hidden {
-    display: none;
-}
-
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-/*
-   At the iPad size shown in your screenshot:
-   - Main summary = 2 columns
-   - Department availability = 3 columns
-   - Bed cards = 3 columns
-*/
-
-@media (max-width: 1150px) {
-
-    .summary-grid {
-        grid-template-columns: repeat(2, 1fr);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ER Bed Monitoring System</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    .department-summary {
-        grid-template-columns: repeat(3, 1fr);
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f7fb;
+      color: #243447;
+      min-height: 100vh;
     }
 
-    .bed-grid {
-        grid-template-columns:
-            repeat(3, minmax(0, 1fr));
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+      background: #123f61;
+      color: white;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
     }
 
-}
-
-
-/* =====================================================
-   TABLET
-===================================================== */
-
-@media (max-width: 800px) {
-
-    .header {
-        padding: 20px 25px;
+    .header-left h1 {
+      font-size: 24px;
+      margin-bottom: 5px;
+      font-weight: 700;
     }
+
+    .header-left p {
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .datetime {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .datetime .date {
+      font-size: 13px;
+      margin-bottom: 4px;
+      opacity: 0.9;
+    }
+
+    .datetime .time {
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    /* =========================
+       MAIN CONTAINER
+    ========================= */
 
     .container {
-        width: calc(100% - 36px);
+      width: 94%;
+      max-width: 1400px;
+      margin: 25px auto 35px;
     }
 
-    .department-summary {
-        grid-template-columns: repeat(3, 1fr);
+    /* =========================
+       DEPARTMENT SUMMARY
+    ========================= */
+
+    .primary-summary {
+      margin-bottom: 22px;
     }
 
-    .bed-grid {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+    .primary-summary h2 {
+      font-size: 18px;
+      color: #123f61;
+      margin-bottom: 12px;
     }
 
-}
-
-
-/* =====================================================
-   PHONE
-===================================================== */
-
-@media (max-width: 600px) {
-
-    .header {
-        display: block;
-
-        padding: 20px;
+    .department-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 12px;
     }
 
-    .header-date-time {
-        text-align: left;
-
-        margin-top: 14px;
-    }
-
-    .header-title {
-        font-size: 24px;
-    }
-
-    .container {
-        width: calc(100% - 24px);
-
-        margin-top: 22px;
-    }
-
-    .summary-grid {
-        grid-template-columns: repeat(2, 1fr);
-
-        gap: 12px;
-    }
-
-    .summary-card {
-        min-height: 100px;
-
-        padding: 17px;
-    }
-
-    .summary-number {
-        font-size: 27px;
-    }
-
-    .department-summary {
-        grid-template-columns: repeat(2, 1fr);
-
-        gap: 10px;
-
-        margin-bottom: 28px;
+    .centered-summary-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      width: 75%;
+      margin-left: auto;
+      margin-right: auto;
+      gap: 12px;
     }
 
     .department-summary-card {
-        padding: 13px;
+      background: white;
+      border-radius: 12px;
+      min-height: 112px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      border: 1px solid #e3eaf1;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
 
-    .status-heading {
-        display: block;
+    .department-summary-card .department-name {
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 600;
+      margin-bottom: 7px;
     }
 
-    .status-heading h2 {
-        margin-bottom: 14px;
+    .department-summary-card .available-number {
+      font-size: 32px;
+      line-height: 1;
+      font-weight: 700;
+      color: #123f61;
+      margin-bottom: 6px;
+    }
+
+    .department-summary-card .available-label {
+      font-size: 11px;
+      color: #718096;
+    }
+
+    /* =========================
+       OVERALL SUMMARY
+    ========================= */
+
+    .secondary-summary {
+      margin-bottom: 28px;
+    }
+
+    .secondary-summary h2 {
+      font-size: 16px;
+      color: #123f61;
+      margin-bottom: 10px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .summary-card {
+      background: white;
+      border: 1px solid #e3eaf1;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    .summary-card .label {
+      font-size: 11px;
+      color: #718096;
+      margin-bottom: 5px;
+    }
+
+    .summary-card .number {
+      font-size: 22px;
+      font-weight: 700;
+      color: #123f61;
+    }
+
+    /* =========================
+       BED STATUS HEADER
+    ========================= */
+
+    .status-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .status-header h2 {
+      font-size: 18px;
+      color: #123f61;
     }
 
     .search-box {
-        width: 100%;
+      width: 250px;
+      padding: 10px 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      outline: none;
+      background: white;
+      font-size: 13px;
     }
 
-    .department {
-        padding: 18px;
+    .search-box:focus {
+      border-color: #123f61;
+      box-shadow: 0 0 0 2px rgba(18, 63, 97, 0.08);
     }
+
+    /* =========================
+       DEPARTMENT SECTIONS
+    ========================= */
+
+    .department-section {
+      background: white;
+      border: 1px solid #e3eaf1;
+      border-radius: 12px;
+      padding: 17px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.04);
+    }
+
+    .department-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 13px;
+      gap: 15px;
+    }
+
+    .department-section-header h3 {
+      font-size: 15px;
+      color: #123f61;
+    }
+
+    .section-count {
+      font-size: 11px;
+      color: #718096;
+      white-space: nowrap;
+    }
+
+    /* =========================
+       BED CARDS
+    ========================= */
 
     .bed-grid {
-        grid-template-columns: 1fr;
+      display: grid;
+      grid-template-columns: repeat(9, minmax(55px, 1fr));
+      gap: 7px;
+    }
+
+    .bed-card {
+      min-height: 58px;
+      border-radius: 8px;
+      padding: 6px 5px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      gap: 7px;
+      cursor: pointer;
+      user-select: none;
+
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+
+      border: 1px solid transparent;
+    }
+
+    .bed-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.10);
+    }
+
+    .bed-card:active {
+      transform: scale(0.97);
+    }
+
+    .bed-card.available {
+      background: #ecfdf3;
+      border-color: #b7ebc9;
+    }
+
+    .bed-card.occupied {
+      background: #fff1f1;
+      border-color: #f3b7b7;
+    }
+
+    .bed-short-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #243447;
+      line-height: 1;
+    }
+
+    .status-badge {
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      padding: 3px 5px;
+      border-radius: 20px;
+      line-height: 1;
+    }
+
+    .available .status-badge {
+      color: #276749;
+      background: #c6f6d5;
+    }
+
+    .occupied .status-badge {
+      color: #9b2c2c;
+      background: #fed7d7;
+    }
+
+    .search-hidden {
+      display: none;
+    }
+
+    /* =========================
+       ACTIVITY LOG
+    ========================= */
+
+    .activity-section {
+      background: white;
+      border: 1px solid #e3eaf1;
+      border-radius: 12px;
+      padding: 18px;
+      margin-top: 22px;
+      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.04);
     }
 
     .activity-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 13px;
+    }
+
+    .activity-header h2 {
+      font-size: 17px;
+      color: #123f61;
+    }
+
+    /* Circular X clear button */
+
+    .clear-icon-button {
+      width: 30px;
+      height: 30px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: #f1f3f5;
+      color: #64748b;
+
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 28px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+
+      transition: 0.15s ease;
+    }
+
+    .clear-icon-button:hover {
+      background: #e2e6eb;
+      color: #334155;
+    }
+
+    .clear-icon-button:active {
+      transform: scale(0.92);
+    }
+
+    .activity-table-wrapper {
+      overflow-x: auto;
+    }
+
+    .activity-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .activity-table th {
+      background: #f5f8fb;
+      color: #526274;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 10px 12px;
+      border-bottom: 1px solid #dfe6ed;
+    }
+
+    .activity-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #edf1f5;
+      color: #334155;
+    }
+
+    .activity-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .activity-time {
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    .activity-arrow {
+      color: #718096;
+      margin: 0 5px;
+    }
+
+    .log-occupied {
+      color: #c53030;
+      font-weight: 700;
+    }
+
+    .log-available {
+      color: #2f855a;
+      font-weight: 700;
+    }
+
+    .empty-log {
+      text-align: center;
+      color: #94a3b8;
+      padding: 18px !important;
+      font-style: italic;
+    }
+
+    /* =========================
+       CLEAR LOG MODAL
+    ========================= */
+
+    .modal-overlay {
+      display: none;
+
+      position: fixed;
+      inset: 0;
+
+      background: rgba(15, 23, 42, 0.45);
+
+      z-index: 9999;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .clear-modal {
+      width: 100%;
+      max-width: 470px;
+      max-height: 85vh;
+
+      background: white;
+
+      border-radius: 13px;
+
+      box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.18);
+
+      overflow: hidden;
+    }
+
+    .clear-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      gap: 15px;
+
+      padding: 18px 20px;
+
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .clear-modal-header h3 {
+      font-size: 17px;
+      color: #123f61;
+      margin-bottom: 4px;
+    }
+
+    .clear-modal-header p {
+      font-size: 12px;
+      color: #718096;
+    }
+
+    .modal-close {
+      width: 28px;
+      height: 28px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: #f1f3f5;
+      color: #64748b;
+
+      font-size: 20px;
+      line-height: 25px;
+
+      cursor: pointer;
+    }
+
+    .modal-close:hover {
+      background: #e2e6eb;
+    }
+
+    .select-all-row {
+      padding: 12px 20px;
+
+      background: #f8fafc;
+
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .select-all-row label {
+      display: flex;
+      align-items: center;
+
+      gap: 9px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      color: #334155;
+
+      cursor: pointer;
+    }
+
+    .log-selection-list {
+      max-height: 330px;
+      overflow-y: auto;
+
+      padding: 8px 20px;
+    }
+
+    .log-selection-item {
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+
+      padding: 10px 4px;
+
+      border-bottom: 1px solid #f1f5f9;
+
+      cursor: pointer;
+    }
+
+    .log-selection-item:last-child {
+      border-bottom: none;
+    }
+
+    .log-selection-item:hover {
+      background: #f8fafc;
+    }
+
+    .log-selection-item input {
+      width: 15px;
+      height: 15px;
+
+      cursor: pointer;
+
+      flex-shrink: 0;
+    }
+
+    .log-selection-info {
+      display: flex;
+      flex-direction: column;
+
+      gap: 2px;
+    }
+
+    .log-selection-bed {
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .log-selection-status {
+      font-size: 10px;
+      color: #718096;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      text-align: center;
+      color: #718096;
+      font-size: 11px;
+      padding: 10px 20px 25px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 1000px) {
+
+      .department-summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .centered-summary-row {
+        width: 100%;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .bed-grid {
+        grid-template-columns:
+          repeat(6, minmax(55px, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+
+      header {
+        padding: 15px 18px;
+        flex-direction: column;
         align-items: flex-start;
+      }
+
+      .datetime {
+        text-align: left;
+      }
+
+      .container {
+        width: 92%;
+        margin-top: 18px;
+      }
+
+      .department-summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .centered-summary-row {
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .status-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-box {
+        width: 100%;
+      }
+
+      .bed-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
 
-}
+    @media (max-width: 450px) {
 
+      .department-summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
 
-/* =====================================================
-   SMALL PHONE
-===================================================== */
+      .centered-summary-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
 
-@media (max-width: 400px) {
+      .department-summary-card {
+        min-height: 100px;
+      }
 
-    .summary-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .department-summary {
+      .summary-grid {
         grid-template-columns: 1fr 1fr;
+      }
+
+      .bed-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .activity-table {
+        min-width: 500px;
+      }
     }
 
-}
-
-</style>
+  </style>
 </head>
 
 
 <body>
 
+  <!-- =========================
+       HEADER
+  ========================= -->
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
+  <header>
 
-<header class="header">
+    <div class="header-left">
 
-    <div>
+      <h1>
+        ER Bed Monitoring System
+      </h1>
 
-        <h1 class="header-title">
-            ER Bed Monitoring System
-        </h1>
-
-        <div class="header-subtitle">
-            Emergency Department Bed Availability Monitoring
-        </div>
-
-    </div>
-
-
-    <div class="header-date-time">
-
-        <div
-            class="header-date"
-            id="currentDate">
-        </div>
-
-        <div
-            class="header-time"
-            id="currentTime">
-        </div>
+      <p>
+        Emergency Department Bed Availability Monitoring
+      </p>
 
     </div>
 
-</header>
+
+    <div class="datetime">
+
+      <div
+        class="date"
+        id="currentDate">
+      </div>
+
+      <div
+        class="time"
+        id="currentTime">
+      </div>
+
+    </div>
+
+  </header>
 
 
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
-<main class="container">
+  <main class="container">
 
 
-    <!-- =================================================
-         MAIN SUMMARY
-    ================================================== -->
-
-    <section class="summary-grid">
-
-
-        <div class="summary-card">
-
-            <div class="summary-label">
-                Total Beds / Rooms
-            </div>
-
-            <div
-                class="summary-number"
-                id="totalCount">
-                23
-            </div>
-
-        </div>
-
-
-        <div class="summary-card">
-
-            <div class="summary-label">
-                Available
-            </div>
-
-            <div
-                class="summary-number"
-                id="availableCount">
-                23
-            </div>
-
-        </div>
-
-
-        <div class="summary-card">
-
-            <div class="summary-label">
-                Occupied
-            </div>
-
-            <div
-                class="summary-number"
-                id="occupiedCount">
-                0
-            </div>
-
-        </div>
-
-
-        <div class="summary-card">
-
-            <div class="summary-label">
-                Occupancy Rate
-            </div>
-
-            <div
-                class="summary-number"
-                id="occupancyCount">
-                0%
-            </div>
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =================================================
+    <!-- =========================
          DEPARTMENT AVAILABILITY
-    ================================================== -->
+    ========================= -->
 
-    <section class="department-summary">
+    <section class="primary-summary">
+
+      <h2>
+        Department Availability
+      </h2>
+
+
+      <!-- FIRST ROW -->
+
+      <div class="department-summary-grid">
 
 
         <div class="department-summary-card">
 
-            <span>
-                Medicine
-            </span>
+          <div class="department-name">
+            Medicine
+          </div>
 
-            <strong id="medicineAvailableSummary">
-                9
-            </strong>
+          <div
+            class="available-number"
+            id="medicineAvailableSummary">
+            9
+          </div>
 
-            <small>
-                Available
-            </small>
+          <div class="available-label">
+            Available
+          </div>
 
         </div>
 
 
         <div class="department-summary-card">
 
-            <span>
-                Surgery
-            </span>
+          <div class="department-name">
+            Surgery
+          </div>
 
-            <strong id="surgeryAvailableSummary">
-                4
-            </strong>
+          <div
+            class="available-number"
+            id="surgeryAvailableSummary">
+            4
+          </div>
 
-            <small>
-                Available
-            </small>
-
-        </div>
-
-
-        <div class="department-summary-card">
-
-            <span>
-                Pediatric
-            </span>
-
-            <strong id="pediatricAvailableSummary">
-                4
-            </strong>
-
-            <small>
-                Available
-            </small>
+          <div class="available-label">
+            Available
+          </div>
 
         </div>
 
 
         <div class="department-summary-card">
 
-            <span>
-                Isolation
-            </span>
+          <div class="department-name">
+            Pediatric
+          </div>
 
-            <strong id="isolationAvailableSummary">
-                2
-            </strong>
+          <div
+            class="available-number"
+            id="pediatricAvailableSummary">
+            4
+          </div>
 
-            <small>
-                Available
-            </small>
-
-        </div>
-
-
-        <div class="department-summary-card">
-
-            <span>
-                Observation
-            </span>
-
-            <strong id="observationAvailableSummary">
-                3
-            </strong>
-
-            <small>
-                Available
-            </small>
+          <div class="available-label">
+            Available
+          </div>
 
         </div>
 
 
         <div class="department-summary-card">
 
-            <span>
-                Minor OR
-            </span>
+          <div class="department-name">
+            Isolation
+          </div>
 
-            <strong id="minorORAvailableSummary">
-                1
-            </strong>
+          <div
+            class="available-number"
+            id="isolationAvailableSummary">
+            1
+          </div>
 
-            <small>
-                Available
-            </small>
+          <div class="available-label">
+            Available
+          </div>
 
         </div>
 
+      </div>
+
+
+      <!-- SECOND ROW -->
+
+      <div class="centered-summary-row">
+
+
+        <div class="department-summary-card">
+
+          <div class="department-name">
+            Decontamination
+          </div>
+
+          <div
+            class="available-number"
+            id="decontaminationAvailableSummary">
+            1
+          </div>
+
+          <div class="available-label">
+            Available
+          </div>
+
+        </div>
+
+
+        <div class="department-summary-card">
+
+          <div class="department-name">
+            Observation
+          </div>
+
+          <div
+            class="available-number"
+            id="observationAvailableSummary">
+            3
+          </div>
+
+          <div class="available-label">
+            Available
+          </div>
+
+        </div>
+
+
+        <div class="department-summary-card">
+
+          <div class="department-name">
+            Minor OR
+          </div>
+
+          <div
+            class="available-number"
+            id="minorORAvailableSummary">
+            1
+          </div>
+
+          <div class="available-label">
+            Available
+          </div>
+
+        </div>
+
+
+      </div>
 
     </section>
 
 
+    <!-- =========================
+         OVERALL SUMMARY
+    ========================= -->
 
-    <!-- =================================================
+    <section class="secondary-summary">
+
+      <h2>
+        Overall Summary
+      </h2>
+
+
+      <div class="summary-grid">
+
+
+        <div class="summary-card">
+
+          <div class="label">
+            Total Beds / Rooms
+          </div>
+
+          <div
+            class="number"
+            id="totalCount">
+            23
+          </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+          <div class="label">
+            Available
+          </div>
+
+          <div
+            class="number"
+            id="availableCount">
+            23
+          </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+          <div class="label">
+            Occupied
+          </div>
+
+          <div
+            class="number"
+            id="occupiedCount">
+            0
+          </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+          <div class="label">
+            Occupancy Rate
+          </div>
+
+          <div
+            class="number"
+            id="occupancyCount">
+            0%
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
          BED AND ROOM STATUS
-    ================================================== -->
+    ========================= -->
 
-    <div class="status-heading">
+    <section>
+
+
+      <div class="status-header">
 
         <h2>
-            Bed and Room Status
+          Bed and Room Status
         </h2>
 
 
-        <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          class="search-box"
+          placeholder="Search bed or room..."
+        >
 
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Search bed or room..."
-                autocomplete="off">
-
-        </div>
-
-    </div>
+      </div>
 
 
+      <!-- MEDICINE -->
 
-    <!-- =================================================
-         MEDICINE
-    ================================================== -->
+      <div class="department-section">
 
-    <section class="department">
+        <div class="department-section-header">
 
-        <div class="department-header">
+          <h3>
+            Medicine
+          </h3>
 
-            <div class="department-name">
-                Medicine
-            </div>
-
-            <div
-                class="department-count"
-                id="medicineCount">
-                9 available / 0 occupied
-            </div>
+          <div
+            class="section-count"
+            id="medicineSectionCount">
+            9 available / 0 occupied
+          </div>
 
         </div>
-
 
         <div
-            class="bed-grid"
-            id="medicineBeds">
+          class="bed-grid"
+          id="medicineBeds">
         </div>
+
+      </div>
+
+
+      <!-- SURGERY -->
+
+      <div class="department-section">
+
+        <div class="department-section-header">
+
+          <h3>
+            Surgery
+          </h3>
+
+          <div
+            class="section-count"
+            id="surgerySectionCount">
+            4 available / 0 occupied
+          </div>
+
+        </div>
+
+        <div
+          class="bed-grid"
+          id="surgeryBeds">
+        </div>
+
+      </div>
+
+
+      <!-- PEDIATRIC -->
+
+      <div class="department-section">
+
+        <div class="department-section-header">
+
+          <h3>
+            Pediatric
+          </h3>
+
+          <div
+            class="section-count"
+            id="pediatricSectionCount">
+            4 available / 0 occupied
+          </div>
+
+        </div>
+
+        <div
+          class="bed-grid"
+          id="pediatricBeds">
+        </div>
+
+      </div>
+
+
+      <!-- ISOLATION -->
+
+      <div class="department-section">
+
+        <div class="department-section-header">
+
+          <h3>
+            Isolation
+          </h3>
+
+          <div
+            class="section-count"
+            id="isolationSectionCount">
+            1 available / 0 occupied
+          </div>
+
+        </div>
+
+        <div
+          class="bed-grid"
+          id="isolationBeds">
+        </div>
+
+      </div>
+
+
+      <!-- DECONTAMINATION -->
+
+      <div class="department-section">
+
+        <div class="department-section-header">
+
+          <h3>
+            Decontamination
+          </h3>
+
+          <div
+            class="section-count"
+            id="decontaminationSectionCount">
+            1 available / 0 occupied
+          </div>
+
+        </div>
+
+        <div
+          class="bed-grid"
+          id="decontaminationBeds">
+        </div>
+
+      </div>
+
+
+      <!-- OBSERVATION -->
+
+      <div class="department-section">
+
+        <div class="department-section-header">
+
+          <h3>
+            Observation
+          </h3>
+
+          <div
+            class="section-count"
+            id="observationSectionCount">
+            3 available / 0 occupied
+          </div>
+
+        </div>
+
+        <div
+          class="bed-grid"
+          id="observationBeds">
+        </div>
+
+      </div>
+
+
+      <!-- MINOR OR -->
+
+      <div class="department-section">
+
+        <div class="department-section-header">
+
+          <h3>
+            Minor OR
+          </h3>
+
+          <div
+            class="section-count"
+            id="minorORSectionCount">
+            1 available / 0 occupied
+          </div>
+
+        </div>
+
+        <div
+          class="bed-grid"
+          id="minorORBeds">
+        </div>
+
+      </div>
+
 
     </section>
 
 
-
-    <!-- =================================================
-         SURGERY
-    ================================================== -->
-
-    <section class="department">
-
-        <div class="department-header">
-
-            <div class="department-name">
-                Surgery
-            </div>
-
-            <div
-                class="department-count"
-                id="surgeryCount">
-                4 available / 0 occupied
-            </div>
-
-        </div>
-
-
-        <div
-            class="bed-grid"
-            id="surgeryBeds">
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         PEDIATRIC
-    ================================================== -->
-
-    <section class="department">
-
-        <div class="department-header">
-
-            <div class="department-name">
-                Pediatric
-            </div>
-
-            <div
-                class="department-count"
-                id="pediatricCount">
-                4 available / 0 occupied
-            </div>
-
-        </div>
-
-
-        <div
-            class="bed-grid"
-            id="pediatricBeds">
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         ISOLATION
-    ================================================== -->
-
-    <section class="department">
-
-        <div class="department-header">
-
-            <div class="department-name">
-                Isolation
-            </div>
-
-            <div
-                class="department-count"
-                id="isolationCount">
-                2 available / 0 occupied
-            </div>
-
-        </div>
-
-
-        <div
-            class="bed-grid"
-            id="isolationBeds">
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         OBSERVATION
-    ================================================== -->
-
-    <section class="department">
-
-        <div class="department-header">
-
-            <div class="department-name">
-                Observation
-            </div>
-
-            <div
-                class="department-count"
-                id="observationCount">
-                3 available / 0 occupied
-            </div>
-
-        </div>
-
-
-        <div
-            class="bed-grid"
-            id="observationBeds">
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         MINOR OR
-    ================================================== -->
-
-    <section class="department">
-
-        <div class="department-header">
-
-            <div class="department-name">
-                Minor OR
-            </div>
-
-            <div
-                class="department-count"
-                id="minorORCount">
-                1 available / 0 occupied
-            </div>
-
-        </div>
-
-
-        <div
-            class="bed-grid"
-            id="minorORBeds">
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
+    <!-- =========================
          BED ACTIVITY LOG
-    ================================================== -->
+    ========================= -->
 
     <section class="activity-section">
 
-        <div class="activity-header">
 
-            <div class="activity-title">
-                Bed Activity Log
-            </div>
+      <div class="activity-header">
 
+        <h2>
+          Bed Activity Log
+        </h2>
 
-            <button
-                class="clear-logs"
-                id="clearLogsButton">
 
-                Clear Logs
+        <!-- ONLY CIRCULAR X -->
 
-            </button>
+        <button
+          type="button"
+          class="clear-icon-button"
+          onclick="openClearLogs()"
+          title="Clear activity logs"
+          aria-label="Clear activity logs">
+          ×
+        </button>
 
-        </div>
+      </div>
 
 
-        <div class="table-container">
+      <div class="activity-table-wrapper">
 
-            <table class="activity-table">
+        <table class="activity-table">
 
-                <thead>
+          <thead>
 
-                    <tr>
+            <tr>
 
-                        <th>
-                            Time
-                        </th>
+              <th>
+                Time
+              </th>
 
-                        <th>
-                            Bed / Room
-                        </th>
+              <th>
+                Bed / Room
+              </th>
 
-                        <th>
-                            Status
-                        </th>
+              <th>
+                Status
+              </th>
 
-                    </tr>
+            </tr>
 
-                </thead>
+          </thead>
 
 
-                <tbody id="activityLog">
+          <tbody id="activityLogBody">
 
-                    <tr id="emptyLog">
+            <tr id="emptyLogRow">
 
-                        <td
-                            colspan="3"
-                            class="empty-log">
-
-                            No bed activity recorded yet.
-
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </section>
-
-
-</main>
-
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer class="footer">
-
-    ER Bed Monitoring System Prototype
-
-</footer>
-
-
-
-<script>
-
-/* =====================================================
-   BED DATA
-===================================================== */
-
-const beds = {
-
-    medicine: [
-        "Medicine 01",
-        "Medicine 02",
-        "Medicine 03",
-        "Medicine 04",
-        "Medicine 05",
-        "Medicine 06",
-        "Medicine 07",
-        "Medicine 08",
-        "Medicine 09"
-    ],
-
-    surgery: [
-        "Surgery 01",
-        "Surgery 02",
-        "Surgery 03",
-        "Surgery 04"
-    ],
-
-    pediatric: [
-        "Pediatric 01",
-        "Pediatric 02",
-        "Pediatric 03",
-        "Pediatric 04"
-    ],
-
-    isolation: [
-        "Isolation Room 01",
-        "Isolation Room 02"
-    ],
-
-    observation: [
-        "Observation Bed 01",
-        "Observation Bed 02",
-        "Observation Bed 03"
-    ],
-
-    minorOR: [
-        "Minor OR 01"
-    ]
-
-};
-
-
-/* =====================================================
-   INITIAL BED STATUS
-===================================================== */
-
-const bedStatus = {};
-
-Object.keys(beds).forEach(section => {
-
-    beds[section].forEach(bed => {
-
-        bedStatus[bed] = "Available";
-
-    });
-
-});
-
-
-/* =====================================================
-   RENDER BEDS
-===================================================== */
-
-function renderBeds() {
-
-    Object.keys(beds).forEach(section => {
-
-        const container =
-            document.getElementById(
-                section + "Beds"
-            );
-
-
-        container.innerHTML = "";
-
-
-        beds[section].forEach(bed => {
-
-            const card =
-                document.createElement("div");
-
-
-            const status =
-                bedStatus[bed];
-
-
-            card.className =
-                "bed-card " +
-                (
-                    status === "Available"
-                        ? "available"
-                        : "occupied"
-                );
-
-
-            card.dataset.bed = bed;
-
-
-            card.innerHTML = `
-
-                <div class="bed-name">
-                    ${bed}
-                </div>
-
-                <span class="status-badge">
-                    ${status.toUpperCase()}
-                </span>
-
-                <span class="click-instruction">
-                    Click to change status
-                </span>
-
-            `;
-
-
-            card.addEventListener(
-                "click",
-                () => toggleBed(bed)
-            );
-
-
-            container.appendChild(card);
-
-        });
-
-    });
-
-
-    updateSummary();
-
-    updateDepartmentCounts();
-
-}
-
-
-/* =====================================================
-   TOGGLE BED
-===================================================== */
-
-function toggleBed(bed) {
-
-    if (
-        bedStatus[bed] === "Available"
-    ) {
-
-        bedStatus[bed] = "Occupied";
-
-    }
-
-    else {
-
-        bedStatus[bed] = "Available";
-
-    }
-
-
-    /* Add activity log */
-    addActivityLog(
-        bed,
-        bedStatus[bed]
-    );
-
-
-    /* Refresh interface */
-    renderBeds();
-
-
-    /* Keep search active */
-    searchBeds();
-
-}
-
-
-/* =====================================================
-   MAIN SUMMARY
-===================================================== */
-
-function updateSummary() {
-
-    const total =
-        Object.keys(bedStatus).length;
-
-
-    let occupied = 0;
-
-
-    Object.values(bedStatus).forEach(
-        status => {
-
-            if (
-                status === "Occupied"
-            ) {
-
-                occupied++;
-
-            }
-
-        }
-    );
-
-
-    const available =
-        total - occupied;
-
-
-    const occupancyRate =
-        total === 0
-            ? 0
-            : Math.round(
-                (occupied / total) * 100
-            );
-
-
-    document.getElementById(
-        "totalCount"
-    ).textContent = total;
-
-
-    document.getElementById(
-        "availableCount"
-    ).textContent = available;
-
-
-    document.getElementById(
-        "occupiedCount"
-    ).textContent = occupied;
-
-
-    document.getElementById(
-        "occupancyCount"
-    ).textContent =
-        occupancyRate + "%";
-
-}
-
-
-/* =====================================================
-   DEPARTMENT COUNTS
-===================================================== */
-
-function updateDepartmentCounts() {
-
-    Object.keys(beds).forEach(section => {
-
-        let occupied = 0;
-
-
-        beds[section].forEach(bed => {
-
-            if (
-                bedStatus[bed] === "Occupied"
-            ) {
-
-                occupied++;
-
-            }
-
-        });
-
-
-        const total =
-            beds[section].length;
-
-
-        const available =
-            total - occupied;
-
-
-        /* Existing department count */
-        document.getElementById(
-            section + "Count"
-        ).textContent =
-            `${available} available / ${occupied} occupied`;
-
-
-        /* New department summary */
-        document.getElementById(
-            section + "AvailableSummary"
-        ).textContent =
-            available;
-
-    });
-
-}
-
-
-/* =====================================================
-   ACTIVITY LOG
-===================================================== */
-
-function addActivityLog(
-    bed,
-    status
-) {
-
-    const log =
-        document.getElementById(
-            "activityLog"
-        );
-
-
-    const empty =
-        document.getElementById(
-            "emptyLog"
-        );
-
-
-    if (empty) {
-
-        empty.remove();
-
-    }
-
-
-    const row =
-        document.createElement("tr");
-
-
-    const now =
-        new Date();
-
-
-    const time =
-        now.toLocaleTimeString(
-            "en-US",
-            {
-                hour: "numeric",
-                minute: "2-digit"
-            }
-        );
-
-
-    const statusClass =
-        status === "Occupied"
-            ? "log-occupied"
-            : "log-available";
-
-
-    row.innerHTML = `
-
-        <td>
-            ${time}
-        </td>
-
-        <td>
-            ${bed}
-        </td>
-
-        <td class="${statusClass}">
-            ${status}
-        </td>
-
-    `;
-
-
-    /* Newest log appears first */
-    log.insertBefore(
-        row,
-        log.firstChild
-    );
-
-}
-
-
-/* =====================================================
-   CLEAR LOGS
-===================================================== */
-
-function clearLogs() {
-
-    const confirmed =
-        window.confirm(
-            "Are you sure you want to clear all bed activity logs?"
-        );
-
-
-    if (!confirmed) {
-
-        return;
-
-    }
-
-
-    const log =
-        document.getElementById(
-            "activityLog"
-        );
-
-
-    log.innerHTML = `
-
-        <tr id="emptyLog">
-
-            <td
+              <td
                 colspan="3"
                 class="empty-log">
 
                 No bed activity recorded yet.
 
-            </td>
+              </td>
 
-        </tr>
+            </tr>
 
-    `;
+          </tbody>
 
-}
+        </table>
 
+      </div>
 
-/* =====================================================
-   SEARCH
-===================================================== */
-
-function searchBeds() {
-
-    const search =
-        document
-            .getElementById(
-                "searchInput"
-            )
-            .value
-            .toLowerCase()
-            .trim();
+    </section>
 
 
-    document
-        .querySelectorAll(".bed-card")
-        .forEach(card => {
-
-            const name =
-                card.dataset.bed
-                    .toLowerCase();
+  </main>
 
 
-            if (
-                name.includes(search)
-            ) {
+  <!-- =========================
+       CLEAR LOG MODAL
+  ========================= -->
 
-                card.classList.remove(
-                    "search-hidden"
+  <div
+    id="clearLogsModal"
+    class="modal-overlay">
+
+
+    <div class="clear-modal">
+
+
+      <div class="clear-modal-header">
+
+
+        <div>
+
+          <h3>
+            Clear Activity Logs
+          </h3>
+
+          <p>
+            Select a log to clear it.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="modal-close"
+          onclick="closeClearLogs()"
+          aria-label="Close">
+          ×
+        </button>
+
+
+      </div>
+
+
+      <!-- SELECT ALL -->
+
+      <div class="select-all-row">
+
+        <label>
+
+          <input
+            type="checkbox"
+            id="selectAllLogs"
+            onchange="selectAllAndClear()"
+          >
+
+          <span>
+            Select All
+          </span>
+
+        </label>
+
+      </div>
+
+
+      <!-- LOG LIST -->
+
+      <div
+        id="logSelectionList"
+        class="log-selection-list">
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
+  <footer>
+
+    ER Bed Monitoring System Prototype
+
+  </footer>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
+
+  <script>
+
+
+    /* =====================================================
+       BED DATABASE
+    ===================================================== */
+
+    const beds = {
+
+      medicine: [
+
+        { short: "M1", full: "Medicine 01" },
+        { short: "M2", full: "Medicine 02" },
+        { short: "M3", full: "Medicine 03" },
+        { short: "M4", full: "Medicine 04" },
+        { short: "M5", full: "Medicine 05" },
+        { short: "M6", full: "Medicine 06" },
+        { short: "M7", full: "Medicine 07" },
+        { short: "M8", full: "Medicine 08" },
+        { short: "M9", full: "Medicine 09" }
+
+      ],
+
+
+      surgery: [
+
+        { short: "S1", full: "Surgery 01" },
+        { short: "S2", full: "Surgery 02" },
+        { short: "S3", full: "Surgery 03" },
+        { short: "S4", full: "Surgery 04" }
+
+      ],
+
+
+      pediatric: [
+
+        { short: "P1", full: "Pediatric 01" },
+        { short: "P2", full: "Pediatric 02" },
+        { short: "P3", full: "Pediatric 03" },
+        { short: "P4", full: "Pediatric 04" }
+
+      ],
+
+
+      isolation: [
+
+        {
+          short: "I1",
+          full: "Isolation Room 01"
+        }
+
+      ],
+
+
+      decontamination: [
+
+        {
+          short: "D1",
+          full: "Decontamination Room 01"
+        }
+
+      ],
+
+
+      observation: [
+
+        {
+          short: "O1",
+          full: "Observation Bed 01"
+        },
+
+        {
+          short: "O2",
+          full: "Observation Bed 02"
+        },
+
+        {
+          short: "O3",
+          full: "Observation Bed 03"
+        }
+
+      ],
+
+
+      minorOR: [
+
+        {
+          short: "OR1",
+          full: "Minor OR 01"
+        }
+
+      ]
+
+    };
+
+
+    /* =====================================================
+       BED STATUS
+    ===================================================== */
+
+    const bedStatus = {};
+
+
+    Object.keys(beds).forEach(
+      section => {
+
+        beds[section].forEach(
+          item => {
+
+            bedStatus[item.full] =
+              "Available";
+
+          }
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       ACTIVITY TRACKING
+       
+       activityRecords:
+       Tracks current occupancy.
+
+       clearedActiveLogs:
+       Remembers that a visible log was manually cleared
+       while the bed was still occupied.
+    ===================================================== */
+
+    const activityRecords = {};
+
+    const clearedActiveLogs = {};
+
+
+    /* =====================================================
+       TIME FORMAT
+    ===================================================== */
+
+    function formatActivityTime(date) {
+
+      return date.toLocaleTimeString(
+        "en-US",
+        {
+          hour: "numeric",
+          minute: "2-digit"
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       RENDER ALL BEDS
+    ===================================================== */
+
+    function renderBeds() {
+
+
+      Object.keys(beds).forEach(
+        section => {
+
+
+          const container =
+            document.getElementById(
+              section + "Beds"
+            );
+
+
+          container.innerHTML = "";
+
+
+          beds[section].forEach(
+            item => {
+
+
+              const status =
+                bedStatus[item.full];
+
+
+              const card =
+                document.createElement(
+                  "div"
                 );
 
-            }
 
-            else {
-
-                card.classList.add(
-                    "search-hidden"
+              card.className =
+                "bed-card " +
+                (
+                  status === "Available"
+                    ? "available"
+                    : "occupied"
                 );
 
+
+              card.dataset.bed =
+                item.full;
+
+
+              card.dataset.short =
+                item.short;
+
+
+              card.innerHTML = `
+
+                <div class="bed-short-name">
+
+                  ${item.short}
+
+                </div>
+
+
+                <span class="status-badge">
+
+                  ${status.toUpperCase()}
+
+                </span>
+
+              `;
+
+
+              card.addEventListener(
+                "click",
+                function() {
+
+                  toggleBed(
+                    item.full
+                  );
+
+                }
+              );
+
+
+              container.appendChild(
+                card
+              );
+
+
             }
-
-        });
-
-}
+          );
 
 
-/* =====================================================
-   DATE AND TIME
-===================================================== */
+        }
+      );
 
-function updateDateTime() {
 
-    const now =
+      updateSummary();
+
+      updateDepartmentCounts();
+
+      updateSectionCounts();
+
+      searchBeds();
+
+
+    }
+
+
+    /* =====================================================
+       TOGGLE BED STATUS
+    ===================================================== */
+
+    function toggleBed(bed) {
+
+
+      const oldStatus =
+        bedStatus[bed];
+
+
+      const newStatus =
+        oldStatus === "Available"
+          ? "Occupied"
+          : "Available";
+
+
+      bedStatus[bed] =
+        newStatus;
+
+
+      const now =
         new Date();
 
 
-    const date =
-        now.toLocaleDateString(
-            "en-US",
-            {
-                weekday: "long",
-                month: "long",
-                day: "numeric",
-                year: "numeric"
-            }
+      /* AVAILABLE → OCCUPIED */
+
+      if (
+        oldStatus === "Available" &&
+        newStatus === "Occupied"
+      ) {
+
+        createOccupiedActivity(
+          bed,
+          now
+        );
+
+      }
+
+
+      /* OCCUPIED → AVAILABLE */
+
+      if (
+        oldStatus === "Occupied" &&
+        newStatus === "Available"
+      ) {
+
+        completeOccupiedActivity(
+          bed,
+          now
+        );
+
+      }
+
+
+      renderBeds();
+
+    }
+
+
+    /* =====================================================
+       CREATE OCCUPIED LOG
+    ===================================================== */
+
+    function createOccupiedActivity(
+      bed,
+      time
+    ) {
+
+
+      const tbody =
+        document.getElementById(
+          "activityLogBody"
         );
 
 
-    const time =
-        now.toLocaleTimeString(
-            "en-US",
-            {
-                hour: "numeric",
-                minute: "2-digit",
-                second: "2-digit"
-            }
+      const emptyRow =
+        document.getElementById(
+          "emptyLogRow"
         );
 
 
-    document.getElementById(
+      if (emptyRow) {
+
+        emptyRow.remove();
+
+      }
+
+
+      /*
+         New occupancy cycle.
+
+         If a previous log for the same bed
+         was cleared, reset that flag.
+      */
+
+      delete clearedActiveLogs[bed];
+
+
+      const row =
+        document.createElement(
+          "tr"
+        );
+
+
+      row.dataset.bed =
+        bed;
+
+
+      row.dataset.startTime =
+        formatActivityTime(time);
+
+
+      row.innerHTML = `
+
+        <td class="activity-time">
+
+          ${formatActivityTime(time)}
+
+        </td>
+
+
+        <td>
+
+          ${bed}
+
+        </td>
+
+
+        <td>
+
+          <span class="log-occupied">
+
+            Occupied
+
+          </span>
+
+        </td>
+
+      `;
+
+
+      /*
+         Newest log goes to the top.
+      */
+
+      tbody.insertBefore(
+        row,
+        tbody.firstChild
+      );
+
+
+      /*
+         Save internal occupancy record.
+      */
+
+      activityRecords[bed] = {
+
+        startTime: time,
+
+        row: row,
+
+        visible: true
+
+      };
+
+    }
+
+
+    /* =====================================================
+       COMPLETE OCCUPIED LOG
+    ===================================================== */
+
+    function completeOccupiedActivity(
+      bed,
+      availableTime
+    ) {
+
+
+      const record =
+        activityRecords[bed];
+
+
+      /*
+         NORMAL CASE
+
+         The activity log still exists.
+      */
+
+      if (
+        record &&
+        record.visible === true &&
+        record.row
+      ) {
+
+
+        record.row.innerHTML = `
+
+          <td class="activity-time">
+
+            ${formatActivityTime(
+              record.startTime
+            )}
+
+            <span class="activity-arrow">
+
+              →
+
+            </span>
+
+            ${formatActivityTime(
+              availableTime
+            )}
+
+          </td>
+
+
+          <td>
+
+            ${bed}
+
+          </td>
+
+
+          <td>
+
+            <span class="log-occupied">
+
+              Occupied
+
+            </span>
+
+
+            <span class="activity-arrow">
+
+              →
+
+            </span>
+
+
+            <span class="log-available">
+
+              Available
+
+            </span>
+
+          </td>
+
+        `;
+
+
+        record.row.dataset.endTime =
+          formatActivityTime(
+            availableTime
+          );
+
+
+        /*
+           Occupancy cycle complete.
+        */
+
+        delete activityRecords[bed];
+
+        delete clearedActiveLogs[bed];
+
+
+        return;
+
+      }
+
+
+      /*
+         IMPORTANT FIX
+
+         If the user previously cleared the log
+         while the bed was occupied, do NOT create
+         another log when the bed becomes available.
+      */
+
+      if (
+        clearedActiveLogs[bed] === true
+      ) {
+
+
+        delete activityRecords[bed];
+
+        delete clearedActiveLogs[bed];
+
+
+        return;
+
+      }
+
+
+      /*
+         SAFETY FALLBACK
+
+         Never create a fake
+         "— → Available" record.
+      */
+
+      delete activityRecords[bed];
+
+    }
+
+
+    /* =====================================================
+       UPDATE OVERALL SUMMARY
+    ===================================================== */
+
+    function updateSummary() {
+
+
+      const total =
+        Object.keys(
+          bedStatus
+        ).length;
+
+
+      let occupied = 0;
+
+
+      Object.values(
+        bedStatus
+      ).forEach(
+        status => {
+
+          if (
+            status === "Occupied"
+          ) {
+
+            occupied++;
+
+          }
+
+        }
+      );
+
+
+      const available =
+        total - occupied;
+
+
+      const occupancyRate =
+        total === 0
+          ? 0
+          : Math.round(
+              (
+                occupied /
+                total
+              ) * 100
+            );
+
+
+      document.getElementById(
+        "totalCount"
+      ).textContent =
+        total;
+
+
+      document.getElementById(
+        "availableCount"
+      ).textContent =
+        available;
+
+
+      document.getElementById(
+        "occupiedCount"
+      ).textContent =
+        occupied;
+
+
+      document.getElementById(
+        "occupancyCount"
+      ).textContent =
+        occupancyRate + "%";
+
+    }
+
+
+    /* =====================================================
+       UPDATE DEPARTMENT SUMMARY
+    ===================================================== */
+
+    function updateDepartmentCounts() {
+
+
+      Object.keys(
+        beds
+      ).forEach(
+        section => {
+
+
+          let occupied = 0;
+
+
+          beds[section].forEach(
+            item => {
+
+              if (
+                bedStatus[item.full] ===
+                "Occupied"
+              ) {
+
+                occupied++;
+
+              }
+
+            }
+          );
+
+
+          const total =
+            beds[section].length;
+
+
+          const available =
+            total - occupied;
+
+
+          const element =
+            document.getElementById(
+              section +
+              "AvailableSummary"
+            );
+
+
+          if (element) {
+
+            element.textContent =
+              available;
+
+          }
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       UPDATE SECTION COUNTS
+    ===================================================== */
+
+    function updateSectionCounts() {
+
+
+      Object.keys(
+        beds
+      ).forEach(
+        section => {
+
+
+          let occupied = 0;
+
+
+          beds[section].forEach(
+            item => {
+
+              if (
+                bedStatus[item.full] ===
+                "Occupied"
+              ) {
+
+                occupied++;
+
+              }
+
+            }
+          );
+
+
+          const total =
+            beds[section].length;
+
+
+          const available =
+            total - occupied;
+
+
+          const element =
+            document.getElementById(
+              section +
+              "SectionCount"
+            );
+
+
+          if (element) {
+
+            element.textContent =
+              available +
+              " available / " +
+              occupied +
+              " occupied";
+
+          }
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       SEARCH BEDS
+    ===================================================== */
+
+    function searchBeds() {
+
+
+      const search =
+        document
+          .getElementById(
+            "searchInput"
+          )
+          .value
+          .toLowerCase()
+          .trim();
+
+
+      document
+        .querySelectorAll(
+          ".bed-card"
+        )
+        .forEach(
+          card => {
+
+
+            const fullName =
+              card.dataset.bed
+                .toLowerCase();
+
+
+            const shortName =
+              card.dataset.short
+                .toLowerCase();
+
+
+            if (
+              fullName.includes(search) ||
+              shortName.includes(search)
+            ) {
+
+              card.classList.remove(
+                "search-hidden"
+              );
+
+            } else {
+
+              card.classList.add(
+                "search-hidden"
+              );
+
+            }
+
+          }
+        );
+
+    }
+
+
+    /* =====================================================
+       DATE AND TIME
+    ===================================================== */
+
+    function updateDateTime() {
+
+
+      const now =
+        new Date();
+
+
+      document.getElementById(
         "currentDate"
-    ).textContent = date;
+      ).textContent =
+
+        now.toLocaleDateString(
+          "en-US",
+          {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+            year: "numeric"
+          }
+        );
 
 
-    document.getElementById(
+      document.getElementById(
         "currentTime"
-    ).textContent = time;
+      ).textContent =
 
-}
+        now.toLocaleTimeString(
+          "en-US",
+          {
+            hour: "numeric",
+            minute: "2-digit",
+            second: "2-digit"
+          }
+        );
+
+    }
 
 
-/* =====================================================
-   SEARCH EVENT
-===================================================== */
+    /* =====================================================
+       OPEN CLEAR LOGS MODAL
+    ===================================================== */
 
-document
-    .getElementById("searchInput")
-    .addEventListener(
+    function openClearLogs() {
+
+
+      const modal =
+        document.getElementById(
+          "clearLogsModal"
+        );
+
+
+      const list =
+        document.getElementById(
+          "logSelectionList"
+        );
+
+
+      /*
+         Always rebuild the modal
+         from the currently visible logs.
+      */
+
+      list.innerHTML = "";
+
+
+      const rows =
+        Array.from(
+          document.querySelectorAll(
+            "#activityLogBody tr:not(#emptyLogRow)"
+          )
+        );
+
+
+      /*
+         No logs.
+      */
+
+      if (
+        rows.length === 0
+      ) {
+
+
+        list.innerHTML = `
+
+          <div class="empty-log">
+
+            No bed activity logs to clear.
+
+          </div>
+
+        `;
+
+
+        document.getElementById(
+          "selectAllLogs"
+        ).checked = false;
+
+
+        modal.classList.add(
+          "show"
+        );
+
+
+        return;
+
+      }
+
+
+      /*
+         Create checkbox for each log.
+      */
+
+      rows.forEach(
+        row => {
+
+
+          const cells =
+            row.querySelectorAll(
+              "td"
+            );
+
+
+          if (
+            cells.length < 3
+          ) {
+
+            return;
+
+          }
+
+
+          const bed =
+            cells[1]
+              .innerText
+              .trim();
+
+
+          const time =
+            cells[0]
+              .innerText
+              .trim();
+
+
+          const status =
+            cells[2]
+              .innerText
+              .trim();
+
+
+          const item =
+            document.createElement(
+              "label"
+            );
+
+
+          item.className =
+            "log-selection-item";
+
+
+          item.dataset.bed =
+            bed;
+
+
+          item.innerHTML = `
+
+            <input
+              type="checkbox"
+              class="log-checkbox"
+            >
+
+
+            <div
+              class="log-selection-info">
+
+              <span
+                class="log-selection-bed">
+
+                ${bed}
+
+              </span>
+
+
+              <span
+                class="log-selection-status">
+
+                ${time}
+                •
+                ${status}
+
+              </span>
+
+            </div>
+
+          `;
+
+
+          const checkbox =
+            item.querySelector(
+              ".log-checkbox"
+            );
+
+
+          /*
+             INDIVIDUAL CLEAR
+          */
+
+          checkbox.addEventListener(
+            "change",
+            function() {
+
+
+              if (
+                !this.checked
+              ) {
+
+                return;
+
+              }
+
+
+              const confirmed =
+                window.confirm(
+                  "Clear the activity log for " +
+                  bed +
+                  "?"
+                );
+
+
+              /*
+                 CANCEL
+              */
+
+              if (
+                !confirmed
+              ) {
+
+                this.checked =
+                  false;
+
+                return;
+
+              }
+
+
+              /*
+                 REMOVE VISIBLE LOG
+              */
+
+              row.remove();
+
+              item.remove();
+
+
+              /*
+                 CRITICAL FIX
+
+                 If the bed is still occupied,
+                 preserve its internal occupancy
+                 information but mark the visible
+                 log as cleared.
+              */
+
+              if (
+                bedStatus[bed] ===
+                "Occupied"
+              ) {
+
+
+                clearedActiveLogs[bed] =
+                  true;
+
+
+                if (
+                  activityRecords[bed]
+                ) {
+
+                  activityRecords[bed]
+                    .visible = false;
+
+                }
+
+              } else {
+
+
+                /*
+                   If already available,
+                   no active occupancy remains.
+                */
+
+                delete activityRecords[bed];
+
+                delete clearedActiveLogs[bed];
+
+              }
+
+
+              refreshClearLogModal();
+
+            }
+          );
+
+
+          list.appendChild(
+            item
+          );
+
+
+        }
+      );
+
+
+      document.getElementById(
+        "selectAllLogs"
+      ).checked = false;
+
+
+      modal.classList.add(
+        "show"
+      );
+
+    }
+
+
+    /* =====================================================
+       REFRESH CLEAR LOG MODAL
+    ===================================================== */
+
+    function refreshClearLogModal() {
+
+
+      const list =
+        document.getElementById(
+          "logSelectionList"
+        );
+
+
+      const rows =
+        Array.from(
+          document.querySelectorAll(
+            "#activityLogBody tr:not(#emptyLogRow)"
+          )
+        );
+
+
+      /*
+         NO LOGS LEFT
+      */
+
+      if (
+        rows.length === 0
+      ) {
+
+
+        document.getElementById(
+          "activityLogBody"
+        ).innerHTML = `
+
+          <tr id="emptyLogRow">
+
+            <td
+              colspan="3"
+              class="empty-log">
+
+              No bed activity recorded yet.
+
+            </td>
+
+          </tr>
+
+        `;
+
+
+        list.innerHTML = `
+
+          <div class="empty-log">
+
+            No bed activity logs to clear.
+
+          </div>
+
+        `;
+
+
+        document.getElementById(
+          "selectAllLogs"
+        ).checked = false;
+
+
+        return;
+
+      }
+
+
+      /*
+         Rebuild modal list.
+      */
+
+      list.innerHTML = "";
+
+
+      rows.forEach(
+        row => {
+
+
+          const cells =
+            row.querySelectorAll(
+              "td"
+            );
+
+
+          if (
+            cells.length < 3
+          ) {
+
+            return;
+
+          }
+
+
+          const bed =
+            cells[1]
+              .innerText
+              .trim();
+
+
+          const time =
+            cells[0]
+              .innerText
+              .trim();
+
+
+          const status =
+            cells[2]
+              .innerText
+              .trim();
+
+
+          const item =
+            document.createElement(
+              "label"
+            );
+
+
+          item.className =
+            "log-selection-item";
+
+
+          item.dataset.bed =
+            bed;
+
+
+          item.innerHTML = `
+
+            <input
+              type="checkbox"
+              class="log-checkbox"
+            >
+
+
+            <div
+              class="log-selection-info">
+
+              <span
+                class="log-selection-bed">
+
+                ${bed}
+
+              </span>
+
+
+              <span
+                class="log-selection-status">
+
+                ${time}
+                •
+                ${status}
+
+              </span>
+
+            </div>
+
+          `;
+
+
+          const checkbox =
+            item.querySelector(
+              ".log-checkbox"
+            );
+
+
+          checkbox.addEventListener(
+            "change",
+            function() {
+
+
+              if (
+                !this.checked
+              ) {
+
+                return;
+
+              }
+
+
+              const confirmed =
+                window.confirm(
+                  "Clear the activity log for " +
+                  bed +
+                  "?"
+                );
+
+
+              if (
+                !confirmed
+              ) {
+
+                this.checked =
+                  false;
+
+                return;
+
+              }
+
+
+              row.remove();
+
+              item.remove();
+
+
+              if (
+                bedStatus[bed] ===
+                "Occupied"
+              ) {
+
+
+                clearedActiveLogs[bed] =
+                  true;
+
+
+                if (
+                  activityRecords[bed]
+                ) {
+
+                  activityRecords[bed]
+                    .visible = false;
+
+                }
+
+              } else {
+
+
+                delete activityRecords[bed];
+
+                delete clearedActiveLogs[bed];
+
+              }
+
+
+              refreshClearLogModal();
+
+            }
+          );
+
+
+          list.appendChild(
+            item
+          );
+
+
+        }
+      );
+
+
+      document.getElementById(
+        "selectAllLogs"
+      ).checked = false;
+
+    }
+
+
+    /* =====================================================
+       SELECT ALL AND CLEAR
+    ===================================================== */
+
+    function selectAllAndClear() {
+
+
+      const selectAll =
+        document.getElementById(
+          "selectAllLogs"
+        );
+
+
+      /*
+         Checkbox was unchecked.
+      */
+
+      if (
+        !selectAll.checked
+      ) {
+
+        return;
+
+      }
+
+
+      const rows =
+        Array.from(
+          document.querySelectorAll(
+            "#activityLogBody tr:not(#emptyLogRow)"
+          )
+        );
+
+
+      if (
+        rows.length === 0
+      ) {
+
+        selectAll.checked =
+          false;
+
+        return;
+
+      }
+
+
+      const confirmed =
+        window.confirm(
+          "Are you sure you want to clear all activity logs?"
+        );
+
+
+      /*
+         CANCEL
+      */
+
+      if (
+        !confirmed
+      ) {
+
+        selectAll.checked =
+          false;
+
+        return;
+
+      }
+
+
+      /*
+         IMPORTANT:
+
+         Clear the DISPLAYED logs only.
+
+         Bed status does NOT change.
+      */
+
+      rows.forEach(
+        row => {
+
+
+          const cells =
+            row.querySelectorAll(
+              "td"
+            );
+
+
+          if (
+            cells.length < 3
+          ) {
+
+            return;
+
+          }
+
+
+          const bed =
+            cells[1]
+              .innerText
+              .trim();
+
+
+          /*
+             If still occupied,
+             preserve internal tracking
+             but mark the visible log cleared.
+          */
+
+          if (
+            bedStatus[bed] ===
+            "Occupied"
+          ) {
+
+
+            clearedActiveLogs[bed] =
+              true;
+
+
+            if (
+              activityRecords[bed]
+            ) {
+
+              activityRecords[bed]
+                .visible = false;
+
+            }
+
+          } else {
+
+
+            /*
+               Completed activity.
+            */
+
+            delete activityRecords[bed];
+
+            delete clearedActiveLogs[bed];
+
+          }
+
+        }
+      );
+
+
+      /*
+         Clear visible activity table.
+      */
+
+      document.getElementById(
+        "activityLogBody"
+      ).innerHTML = `
+
+        <tr id="emptyLogRow">
+
+          <td
+            colspan="3"
+            class="empty-log">
+
+            No bed activity recorded yet.
+
+          </td>
+
+        </tr>
+
+      `;
+
+
+      /*
+         Clear modal.
+      */
+
+      document.getElementById(
+        "logSelectionList"
+      ).innerHTML = `
+
+        <div class="empty-log">
+
+          No bed activity logs to clear.
+
+        </div>
+
+      `;
+
+
+      selectAll.checked =
+        false;
+
+    }
+
+
+    /* =====================================================
+       CLOSE CLEAR LOGS MODAL
+    ===================================================== */
+
+    function closeClearLogs() {
+
+      document
+        .getElementById(
+          "clearLogsModal"
+        )
+        .classList.remove(
+          "show"
+        );
+
+    }
+
+
+    /* =====================================================
+       CLOSE MODAL WHEN CLICKING OUTSIDE
+    ===================================================== */
+
+    document
+      .getElementById(
+        "clearLogsModal"
+      )
+      .addEventListener(
+        "click",
+        function(event) {
+
+
+          if (
+            event.target === this
+          ) {
+
+            closeClearLogs();
+
+          }
+
+        }
+      );
+
+
+    /* =====================================================
+       SEARCH LISTENER
+    ===================================================== */
+
+    document
+      .getElementById(
+        "searchInput"
+      )
+      .addEventListener(
         "input",
         searchBeds
+      );
+
+
+    /* =====================================================
+       INITIALIZE SYSTEM
+    ===================================================== */
+
+    renderBeds();
+
+    updateDateTime();
+
+
+    setInterval(
+      updateDateTime,
+      1000
     );
 
 
-/* =====================================================
-   CLEAR LOG EVENT
-===================================================== */
-
-document
-    .getElementById("clearLogsButton")
-    .addEventListener(
-        "click",
-        clearLogs
-    );
-
-
-/* =====================================================
-   INITIALIZE
-===================================================== */
-
-renderBeds();
-
-updateDateTime();
-
-
-setInterval(
-    updateDateTime,
-    1000
-);
-
-</script>
+  </script>
 
 </body>
 </html>
